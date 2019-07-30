@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion '22.0.1'
+    compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.example.helloworld"
+        applicationId "com.badep.badepodoo"
         minSdkVersion 15
-        targetSdkVersion 15
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
     }
@@ -20,5 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
+    implementation files('libs/org-apache-xmlrpc.jar')
 }

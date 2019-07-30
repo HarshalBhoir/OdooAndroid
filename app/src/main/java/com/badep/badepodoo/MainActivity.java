@@ -1,4 +1,4 @@
-package com.example.app;
+package com.badep.badepodoo;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,28 +16,24 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String url = "https://" + getString(R.string.base_url) + "/web";
+
+        if (getIntent().hasExtra("url")){
+            url = getIntent().getExtras().get("url").toString();
+        }
         setContentView(R.layout.activity_main);
 
-        mWebView = (WebView) findViewById(R.id.activity_main_webview);
-
-        // Force links and redirects to open in the WebView instead of in a browser
+        mWebView = findViewById(R.id.activity_main_webview);
         mWebView.setWebViewClient(new WebViewClient());
-
-        // Enable Javascript
         WebSettings webSettings = mWebView.getSettings();
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setDatabaseEnabled(true);
         webSettings.setJavaScriptEnabled(true);
+        mWebView.loadUrl(url);
 
-        // Use remote resource
-        // mWebView.loadUrl("http://example.com");
-
-        // Stop local links and redirects from opening in browser instead of WebView
-        // mWebView.setWebViewClient(new MyAppWebViewClient());
-
-        // Use local resource
-        // mWebView.loadUrl("file:///android_asset/www/index.html");
+        mWebView.setWebViewClient(new MyAppWebViewClient());
     }
 
-    // Prevent the back-button from closing the app
     @Override
     public void onBackPressed() {
         if(mWebView.canGoBack()) {
